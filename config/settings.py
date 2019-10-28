@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third-party
+    'registration',
+
     # Our apps
     'directory',
 ]
@@ -119,3 +122,12 @@ STATIC_URL = '/static/'
 # Authentication
 
 AUTH_USER_MODEL = 'directory.User'
+LOGIN_REDIRECT_URL = '/'
+
+# Registration
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
