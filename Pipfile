@@ -15,6 +15,7 @@ django-debug-toolbar = "*"
 django-extensions = "*"
 werkzeug = "*"
 pygraphviz = "*"
+django-widget-tweaks = "*"
 
 [requires]
 python_version = "3.7"

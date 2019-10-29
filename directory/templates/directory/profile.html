@@ -1,19 +1,51 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
 
 {% block content %}
-<dl>
-  <dt>Name</dt>
-  <dd>{{ user.first_name }} {{ user.last_name }}</dd>
+<script src="{% static 'chosen/chosen.jquery.js' %}"></script>
 
-  {% if user.cohort %}
-  <dt>Cohort</dt>
-  <dd>{{ user.cohort }}</dd>
-  {% endif %}
+<form action="" method="POST">
+{% csrf_token %}
 
-  {% if user.is_momentum_staff %}
-  <dt>Momentum Staff Member</dt>
-  <dd>Yes</dd>
-  {% endif %}
-</dl>
+<div class="field">
+  <label class="label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+  <div class="control">
+    {% render_field form.first_name class+="input" %}    
+  </div>
+</div>
 
+<div class="field">
+ <label class="label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+  <div class="control">
+    {% render_field form.last_name class+="input" %}    
+  </div>
+</div>
+
+<div class="field">
+ <label class="label" for="{{ form.specialities.id_for_label }}">{{ form.specialities.label }}</label>
+  <div class="control">
+    {% render_field form.specialities class+="input" size="10" %}    
+  </div>
+</div>
+
+<div class="field">
+ <label class="label" for="{{ form.interests.id_for_label }}">{{ form.interests.label }}</label>
+  <div class="control">
+    {% render_field form.interests class+="input" size=10 %}    
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <button class="button" type='submit'>Update profile</button>
+  </div>
+</div>
+
+</form>
+
+<script>
+$('#{{ form.specialities.id_for_label }}').chosen()
+$('#{{ form.interests.id_for_label }}').chosen()
+</script>
 {% endblock %}

@@ -29,6 +29,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Required first
+    'registration',
+
+    # Built-in
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third-party
-    'registration',
     'debug_toolbar',
     'django_extensions',
+    'widget_tweaks',
 
     # Our apps
     'directory',
