@@ -12,6 +12,8 @@ mypy = "*"
 django = "*"
 django-registration-redux = "*"
 django-debug-toolbar = "*"
+django-extensions = "*"
+werkzeug = "*"
 
 [requires]
 python_version = "3.7"

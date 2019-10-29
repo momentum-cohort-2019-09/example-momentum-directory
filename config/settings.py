@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Third-party
     'registration',
     'debug_toolbar',
+    'django_extensions',
 
     # Our apps
     'directory',
