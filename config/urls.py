@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from directory import views
 
 urlpatterns = [
@@ -22,3 +23,9 @@ urlpatterns = [
     path('accounts/', include('registration.backends.default.urls')),
     path('', views.index_view, name='index')
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

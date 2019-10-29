@@ -38,12 +38,14 @@ INSTALLED_APPS = [
 
     # Third-party
     'registration',
+    'debug_toolbar',
 
     # Our apps
     'directory',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,3 +133,9 @@ ACCOUNT_ACTIVATION_DAYS = 7
 # Email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Django Debug Toolbar
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
