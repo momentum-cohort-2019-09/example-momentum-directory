@@ -2,6 +2,20 @@
 
 {% block content %}
 
-{{ user }}
+<section class="hero">
+  <div class="hero-body">
+    <h1 class="title">
+      Momentum Student Directory
+    </h1>
+    <h2 class="subtitle">
+    {% if user.is_authenticated %}
+      Welcome, <a href="{% url 'profile' %}">{{ user }}</a>!
+      <small class="is-size-7 has-text-grey">Not {{ user }}? <a href="{% url 'auth_logout' %}">Logout</a>.</small>
+    {% else %}
+      <a href="{% url 'auth_login' %}">Login</a> | <a href="{% url 'registration_register' %}">Register</a>
+    {% endif %}
+    </h2>
+  </div>
+</section>
 
 {% endblock %}

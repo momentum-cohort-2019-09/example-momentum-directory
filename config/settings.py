@@ -125,7 +125,6 @@ STATIC_URL = '/static/'
 # Authentication
 
 AUTH_USER_MODEL = 'directory.User'
-LOGIN_REDIRECT_URL = '/'
 
 # Registration
 

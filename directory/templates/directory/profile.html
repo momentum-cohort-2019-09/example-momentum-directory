@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<dl>
+  <dt>Name</dt>
+  <dd>{{ user.first_name }} {{ user.last_name }}</dd>
+
+  {% if user.cohort %}
+  <dt>Cohort</dt>
+  <dd>{{ user.cohort }}</dd>
+  {% endif %}
+
+  {% if user.is_momentum_staff %}
+  <dt>Momentum Staff Member</dt>
+  <dd>Yes</dd>
+  {% endif %}
+</dl>
+
+{% endblock %}

@@ -21,6 +21,7 @@ from directory import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.default.urls')),
+    path('accounts/profile/', views.accounts_profile, name='profile'),
     path('', views.index_view, name='index')
 ]
 
