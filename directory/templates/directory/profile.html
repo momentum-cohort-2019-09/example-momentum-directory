@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block content %}
-<script src="{% static 'chosen/chosen.jquery.js' %}"></script>
 
 <form action="" method="POST">
 {% csrf_token %}
@@ -16,13 +15,4 @@
   </div>
 </div>
 </form>
-
-<script>
-$('#{{ form.specialities.id_for_label }}')
-  .parent().removeClass("select is-multiple").end()
-  .addClass('input').chosen();
-$('#{{ form.interests.id_for_label }}')
-  .parent().removeClass("select is-multiple").end()
-  .addClass('input').chosen();
-</script>
 {% endblock %}
