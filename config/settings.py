@@ -29,9 +29,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # Required first
-    'registration',
-
     # Built-in
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +43,7 @@ INSTALLED_APPS = [
     # Third-party
     'debug_toolbar',
     'django_extensions',
+    'registration',
     'bulma',
 ]
 
