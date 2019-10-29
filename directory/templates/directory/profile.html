@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load widget_tweaks %}
+{% extends "layout.html" %}
+{% load bulma_tags %}
 {% load static %}
 
 {% block content %}
@@ -8,44 +8,21 @@
 <form action="" method="POST">
 {% csrf_token %}
 
-<div class="field">
-  <label class="label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-  <div class="control">
-    {% render_field form.first_name class+="input" %}    
-  </div>
-</div>
-
-<div class="field">
- <label class="label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-  <div class="control">
-    {% render_field form.last_name class+="input" %}    
-  </div>
-</div>
-
-<div class="field">
- <label class="label" for="{{ form.specialities.id_for_label }}">{{ form.specialities.label }}</label>
-  <div class="control">
-    {% render_field form.specialities class+="input" size="10" %}    
-  </div>
-</div>
-
-<div class="field">
- <label class="label" for="{{ form.interests.id_for_label }}">{{ form.interests.label }}</label>
-  <div class="control">
-    {% render_field form.interests class+="input" size=10 %}    
-  </div>
-</div>
+{{ form|bulma }}
 
 <div class="field">
   <div class="control">
-    <button class="button" type='submit'>Update profile</button>
+    <button class="button is-primary" type='submit'>Update profile</button>
   </div>
 </div>
-
 </form>
 
 <script>
-$('#{{ form.specialities.id_for_label }}').chosen()
-$('#{{ form.interests.id_for_label }}').chosen()
+$('#{{ form.specialities.id_for_label }}')
+  .parent().removeClass("select is-multiple").end()
+  .addClass('input').chosen();
+$('#{{ form.interests.id_for_label }}')
+  .parent().removeClass("select is-multiple").end()
+  .addClass('input').chosen();
 </script>
 {% endblock %}

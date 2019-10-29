@@ -40,13 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Our apps
+    'directory',
+
     # Third-party
     'debug_toolbar',
     'django_extensions',
-    'widget_tweaks',
-
-    # Our apps
-    'directory',
+    'bulma',
 ]
 
 MIDDLEWARE = [
