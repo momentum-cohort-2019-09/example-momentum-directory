@@ -1,5 +1,8 @@
-import $ from 'jquery'
-import './css/bulma.css'
+import 'bulma/css/bulma.css'
+import 'selectize/dist/css/selectize.css'
 import './index.scss'
 
-// $('body').append("<footer>Hey there, I'm from jQuery!!!</footer>")
+import $ from 'jquery'
+import 'selectize'
+
+$('select').selectize()
