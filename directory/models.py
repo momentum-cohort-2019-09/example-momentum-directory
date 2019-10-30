@@ -15,6 +15,14 @@ class User(AbstractUser):
     interests = models.ManyToManyField(to='Technology',
                                        blank=True,
                                        related_name='enthusiasts')
+    looking_for_job = models.BooleanField(default=True)
+
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def __str__(self):
+        return self.name
 
 
 class Technology(models.Model):

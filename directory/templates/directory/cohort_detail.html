@@ -1,0 +1,79 @@
+{% extends "base_with_navbar.html" %}
+
+{% block content %}
+  <h1 class="title">{{ cohort.name }}</h1>
+  <h2 class="is-size-4">Students</h2>
+  <div class="columns" style="margin-top: 1rem; margin-bottom: 2rem;">
+    {% for member in cohort.members.all %}
+      <div class="card column is-4">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-96x96">
+                <img src="https://via.placeholder.com/96" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title">{{ member.name }}</p>
+              {% if member.looking_for_job %}
+              <p class="subtitle has-text-danger">Available for hire</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="content">
+            {% for speciality in member.specialities.all %}
+              <span class="tag">{{ speciality }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <h2 class="is-size-4">Final Projects</h2>
+  <div class="columns"  style="margin-top: 1rem; margin-bottom: 2rem;">
+  {% for project in cohort.final_projects.all %}
+      <div class="card column is-4">
+        {% if project.screenshot %}
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img src="https://via.placeholder.com/150x200" alt="Placeholder image">
+          </figure>
+        </div>
+        {% endif %}
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title">{{ project.name }}</p>
+              <p class="subtitle">{{ project.members.all|join:", " }}</p>
+            </div>
+          </div>
+
+          <div class="content">
+            {{ project.description }}
+          </div>
+
+          <nav class="level is-mobile">
+            <div class="level-left">
+              {% if project.repo_url %}
+              <a class="level-item" href="{{ project.repo_url }}">
+                Source code
+              </a>
+              {% endif %}
+              {% if project.video_url %}
+              <a class="level-item" href="{{ project.video_url }}">
+                Demo Day video
+              </a>
+              {% endif %}
+              {% if project.demo_url %}
+              <a class="level-item" href="{{ project.demo_url }}">
+                Live demo site
+              </a>
+              {% endif %}
+          </nav>
+        </div>
+      </div>
+  {% endfor %}
+  </div>
+
+{% endblock %}

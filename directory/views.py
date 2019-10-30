@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from directory.forms import ProfileForm
+from directory.models import Cohort
 
 # Create your views here.
 
@@ -20,3 +21,8 @@ def accounts_profile(request):
         form = ProfileForm(instance=request.user)
 
     return render(request, 'directory/profile.html', {"form": form})
+
+
+def cohort_detail(request, pk):
+    cohort = get_object_or_404(Cohort, pk=pk)
+    return render(request, 'directory/cohort_detail.html', {"cohort": cohort})
