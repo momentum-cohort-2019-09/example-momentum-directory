@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.text import slugify
 
 
 class User(AbstractUser):
@@ -34,7 +35,22 @@ class Technology(models.Model):
 
 class Cohort(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, null=True)
     start_date = models.DateField()
+
+    def save(self, *args, **kwargs):
+        counter = 0
+        while not self.slug:
+            possible_slug = slugify(self.name)
+            if counter > 0:
+                possible_slug = possible_slug + "-" + counter
+            collisions = Cohort.objects.filter(slug=possible_slug)
+            if collisions.count() == 0:
+                self.slug = possible_slug
+            else:
+                counter += 1
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

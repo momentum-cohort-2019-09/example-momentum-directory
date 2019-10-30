@@ -23,6 +23,10 @@ def accounts_profile(request):
     return render(request, 'directory/profile.html', {"form": form})
 
 
-def cohort_detail(request, pk):
-    cohort = get_object_or_404(Cohort, pk=pk)
-    return render(request, 'directory/cohort_detail.html', {"cohort": cohort})
+def cohort_detail(request, slug):
+    cohort = get_object_or_404(Cohort, slug=slug)
+    members = cohort.members.order_by("last_name")
+    return render(request, 'directory/cohort_detail.html', {
+        "cohort": cohort,
+        "members": members,
+    })

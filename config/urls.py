@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.default.urls')),
     path('accounts/profile/', views.accounts_profile, name='profile'),
-    path('cohorts/<int:pk>/', views.cohort_detail, name='cohort_detail'),
+    path('cohorts/<slug:slug>/', views.cohort_detail, name='cohort_detail'),
     path('', views.index_view, name='index')
 ]
 

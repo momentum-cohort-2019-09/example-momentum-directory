@@ -4,7 +4,7 @@
   <h1 class="title">{{ cohort.name }}</h1>
   <h2 class="is-size-4">Students</h2>
   <div class="columns" style="margin-top: 1rem; margin-bottom: 2rem;">
-    {% for member in cohort.members.all %}
+    {% for member in members %}
       <div class="card column is-4">
         <div class="card-content">
           <div class="media">

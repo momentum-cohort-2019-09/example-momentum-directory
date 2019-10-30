@@ -18,7 +18,15 @@ class DirectoryUserAdmin(UserAdmin):
     )
 
 
+class CohortAdmin(admin.ModelAdmin):
+    fields = (
+        'name',
+        'slug',
+    )
+    prepopulated_fields = {"slug": ('name',)}
+
+
 admin.site.register(User, DirectoryUserAdmin)
 admin.site.register(Technology)
 admin.site.register(Project)
-admin.site.register(Cohort)
+admin.site.register(Cohort, CohortAdmin)
