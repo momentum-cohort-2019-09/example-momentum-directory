@@ -9,6 +9,8 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'first_name',
             'last_name',
+            'avatar',
+            'looking_for_job',
             'specialities',
             'interests',
         ]

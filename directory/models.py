@@ -16,7 +16,8 @@ class User(AbstractUser):
     interests = models.ManyToManyField(to='Technology',
                                        blank=True,
                                        related_name='enthusiasts')
-    looking_for_job = models.BooleanField(default=True)
+    looking_for_job = models.BooleanField(
+        "Are you currently looking for a job?", default=True)
     avatar = models.ImageField(upload_to='user_avatars/', null=True)
 
     @property

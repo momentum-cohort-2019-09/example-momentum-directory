@@ -13,7 +13,9 @@ def index_view(request):
 @login_required
 def accounts_profile(request):
     if request.method == "POST":
-        form = ProfileForm(instance=request.user, data=request.POST)
+        form = ProfileForm(instance=request.user,
+                           data=request.POST,
+                           files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect(to='profile')
