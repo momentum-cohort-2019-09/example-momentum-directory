@@ -141,3 +141,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# User-uploaded images
+
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
