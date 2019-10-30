@@ -9,9 +9,15 @@
         <div class="card-content">
           <div class="media">
             <div class="media-left">
-              <figure class="image is-96x96">
-                <img src="https://via.placeholder.com/96" alt="Placeholder image">
-              </figure>
+              {% if member.avatar %}
+                <figure class="image is-96x96">
+                  <img src="{{ member.avatar.url }}" alt="{{ member.name }}">
+                </figure>  
+              {% else %}
+                <figure class="image is-96x96">
+                  <img src="https://via.placeholder.com/96" alt="Placeholder image">
+                </figure>
+              {% endif %}            
             </div>
             <div class="media-content">
               <p class="title">{{ member.name }}</p>
@@ -36,8 +42,8 @@
       <div class="card column is-4">
         {% if project.screenshot %}
         <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="https://via.placeholder.com/150x200" alt="Placeholder image">
+          <figure class="image">
+            <img src="{{ project.screenshot.url }}" alt="Screenshot of {{ project.name }}">
           </figure>
         </div>
         {% endif %}

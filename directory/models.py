@@ -17,6 +17,7 @@ class User(AbstractUser):
                                        blank=True,
                                        related_name='enthusiasts')
     looking_for_job = models.BooleanField(default=True)
+    avatar = models.ImageField(upload_to='user_avatars/', null=True)
 
     @property
     def name(self):
@@ -73,3 +74,4 @@ class Project(models.Model):
                                                  related_name='final_projects',
                                                  null=True,
                                                  blank=True)
+    screenshot = models.ImageField(upload_to='project_screenshots/', null=True)

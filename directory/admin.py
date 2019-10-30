@@ -7,7 +7,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 class DirectoryUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'avatar',)}),
         (_('Momentum info'), {"fields": (
             "cohort", "is_momentum_staff", "looking_for_job", "specialities", "interests",
         )}),

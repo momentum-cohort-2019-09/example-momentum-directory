@@ -17,6 +17,7 @@ werkzeug = "*"
 pygraphviz = "*"
 django-widget-tweaks = "*"
 django-bulma = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"
