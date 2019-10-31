@@ -15,6 +15,12 @@
       <p class="subtitle has-text-danger">Available for hire</p>
     {% endif %}
 
+    {% if request.user == user %}
+      <div style="margin-bottom: 1.5rem">
+      <a href="{% url 'profile' %}" class="button is-primary">Edit my profile</a>
+      </div>
+    {% endif %}
+
     <section style="margin-bottom: 1.5rem">
     <h3 class="title is-size-4">Specialities</h3>
     <p>      

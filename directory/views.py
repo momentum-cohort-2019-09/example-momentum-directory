@@ -40,3 +40,12 @@ class PersonDetailView(DetailView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
     template_name = 'directory/person_detail.html'
+
+    def get_queryset(self):
+        return User.objects.filter(cohort__isnull=False)
+
+
+# same as:
+# def person_detail(request, username):
+#     user = get_object_or_404(User, username=username)
+#     return render(request, 'directory/person_detail.html', {"user": user})
