@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from directory.forms import ProfileForm
-from directory.models import Cohort
+from directory.models import Cohort, User
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 
@@ -32,3 +33,10 @@ def cohort_detail(request, slug):
         "cohort": cohort,
         "members": members,
     })
+
+
+class PersonDetailView(DetailView):
+    model = User
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    template_name = 'directory/person_detail.html'

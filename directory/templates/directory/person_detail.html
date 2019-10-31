@@ -1,48 +1,51 @@
 {% extends "base_with_navbar.html" %}
 
 {% block content %}
-  <h1 class="title">{{ cohort.name }}</h1>
-  <h2 class="is-size-4">Students</h2>
-  <div class="columns" style="margin-top: 1rem; margin-bottom: 2rem;">
-    {% for member in members %}
-    <div class="column is-4">
-      <div class="card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              {% if member.avatar %}
-                <figure class="image" style="width: 96px">
-                  <img src="{{ member.avatar.url }}" alt="{{ member.name }}">
-                </figure>  
-              {% else %}
-                <figure class="image is-96x96">
-                  <img src="https://via.placeholder.com/96" alt="Placeholder image">
-                </figure>
-              {% endif %}            
-            </div>
-            <div class="media-content">
-              <p class="title">
-                <a href="{{ member.get_absolute_url }}">{{ member.name }}</a>
-              </p>
-              {% if member.looking_for_job %}
-              <p class="subtitle has-text-danger">Available for hire</p>
-              {% endif %}
-            </div>
-          </div>
+<div class="columns">
+  <div class="column">
+    <h1 class="title">{{ user.name }}</h1>
+    <h2 class="subtitle">
+      {% if user.cohort %}
+      {{ user.cohort }}
+      {% elif user.is_momentum_staff %}
+      Momentum staff member
+      {% endif %}    
+    </h2>
+    {% if user.looking_for_job %}
+      <p class="subtitle has-text-danger">Available for hire</p>
+    {% endif %}
 
-          <div class="content">
-            {% for speciality in member.specialities.all %}
-              <span class="tag">{{ speciality }}</span>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      </div>
-    {% endfor %}
+    <section style="margin-bottom: 1.5rem">
+    <h3 class="title is-size-4">Specialities</h3>
+    <p>      
+      {% for speciality in user.specialities.all %}
+        <span class="tag">{{ speciality }}</span>
+      {% endfor %}
+    </p>
+    </section>
+
+    <section style="margin-bottom: 1.5rem">
+    <h3 class="title is-size-4">Interests</h3>
+    <p>      
+      {% for interest in user.interests.all %}
+        <span class="tag">{{ interest }}</span>
+      {% endfor %}
+    </p>    
+    </section>
   </div>
-  <h2 class="is-size-4">Final Projects</h2>
+  {% if user.avatar %}
+  <div class="column">
+    <figure class="image">
+      <img src="{{ user.avatar.url }}" alt="{{ user.name }}">
+    </figure>
+  </div>
+  {% endif %}  
+</div>
+{% if user.projects.count %}
+<div>
+  <h3 class="title is-size-4">Projects</h3>
   <div class="columns"  style="margin-top: 1rem; margin-bottom: 2rem;">
-  {% for project in cohort.final_projects.all %}
+  {% for project in user.projects.all %}
   <div class="column is-4">
       <div class="card">
         {% if project.screenshot %}
@@ -87,5 +90,8 @@
       </div>
   {% endfor %}
   </div>
+  </div>
+{% endif %}
+
 
 {% endblock %}
