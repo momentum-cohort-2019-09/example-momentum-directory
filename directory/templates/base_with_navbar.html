@@ -30,15 +30,11 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-            Cohort 1
-          </a>
-          <a class="navbar-item">
-            Cohort 2
-          </a>
-          <a class="navbar-item">
-            Cohort 3
-          </a>
+          {% for cohort in cohorts %}
+            <a class="navbar-item" href="{{ cohort.get_absolute_url }}">
+              {{ cohort.name }}
+            </a>
+          {% endfor %}          
         </div>
       </div>
     </div>

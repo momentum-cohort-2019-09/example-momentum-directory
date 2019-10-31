@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -53,6 +54,9 @@ class Cohort(models.Model):
                 counter += 1
 
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("cohort_detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.name
