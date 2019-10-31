@@ -1,4 +1,4 @@
-<div class="column is-4">
+<div class="column is-4 project">
   <div class="card">
     {% if project.screenshot %}
     <div class="card-image">
@@ -10,7 +10,14 @@
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          <p class="title">{{ project.name }}</p>
+          <p class="title">
+            {{ project.name }}
+            {% if request.user.is_authenticated %}
+              <i class="favorite-star 
+                {% if project in request.user.favorites.all %}fas{% else %}far{% endif %} 
+                fa-star" data-project-pk="{{ project.pk }}"></i>              
+            {% endif %}
+          </p>
           <p class="subtitle">{{ project.members.all|join:", " }}</p>
         </div>
       </div>

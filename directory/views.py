@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from directory.forms import ProfileForm
 from directory.models import Cohort, User, Project
 from django.db.models import Q
@@ -47,6 +50,18 @@ def project_list(request):
 
     return render(request, "directory/project_list.html",
                   {"projects": projects})
+
+
+@login_required
+@require_POST
+@csrf_exempt
+def toggle_project_favorite(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    if project in request.user.favorites.all():
+        request.user.favorites.remove(project)
+    else:
+        request.user.favorites.add(project)
+    return JsonResponse({"ok": True})
 
 
 class PersonDetailView(DetailView):

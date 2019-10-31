@@ -83,3 +83,4 @@ class Project(models.Model):
                                                  null=True,
                                                  blank=True)
     screenshot = models.ImageField(upload_to='project_screenshots/', null=True)
+    fans = models.ManyToManyField(to=User, related_name="favorites", blank=True)

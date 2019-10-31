@@ -2,3 +2,12 @@
   background-color: #CCF;
   margin-bottom: 1rem;
 }
+
+.hidden {
+  display: none;
+}
+
+.favorite-star:hover {
+  color: blue;
+  cursor: pointer;
+}

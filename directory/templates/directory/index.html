@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_with_navbar.html" %}
 
 {% block content %}
 
@@ -11,6 +11,19 @@
     {% if user.is_authenticated %}
       Welcome, <a href="{% url 'profile' %}">{{ user }}</a>!
       <small class="is-size-7 has-text-grey">Not {{ user }}? <a href="{% url 'auth_logout' %}">Logout</a>.</small>
+
+      <h2 class="title is-size-4">Favorite Projects</h2>
+      {% if request.user.favorites.count %}
+        <div class="columns">
+          {% for project in request.user.favorites.all %}
+            {% include "_partials/project.html" %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>You don't have any favorite projects yet.</p>
+      {% endif %}
+
+
     {% else %}
       <a href="{% url 'auth_login' %}">Login</a> | <a href="{% url 'registration_register' %}">Register</a>
     {% endif %}
