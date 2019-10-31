@@ -9,6 +9,7 @@ prospector = "*"
 mypy = "*"
 werkzeug = "*"
 pygraphviz = "*"
+pytest = "*"
 
 [packages]
 django = "*"
