@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.default.urls')),
     path('accounts/profile/', views.accounts_profile, name='profile'),
+    path('projects/', views.project_list, name='project_list'),
     path('cohorts/<slug:slug>/', views.cohort_detail, name='cohort_detail'),
     path('people/<slug:username>/',
          views.PersonDetailView.as_view(),

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from directory.forms import ProfileForm
-from directory.models import Cohort, User
+from directory.models import Cohort, User, Project
+from django.db.models import Q
 from django.views.generic.detail import DetailView
 
 # Create your views here.
@@ -33,6 +34,19 @@ def cohort_detail(request, slug):
         "cohort": cohort,
         "members": members,
     })
+
+
+def project_list(request):
+    projects = Project.objects.all()
+    search_term = request.GET.get('search')
+    if search_term:
+        projects = projects.filter(
+            Q(description__icontains=search_term) |
+            Q(name__icontains=search_term) |
+            Q(technologies__name__icontains=search_term))
+
+    return render(request, "directory/project_list.html",
+                  {"projects": projects})
 
 
 class PersonDetailView(DetailView):

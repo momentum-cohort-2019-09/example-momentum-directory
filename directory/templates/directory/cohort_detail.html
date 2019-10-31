@@ -43,48 +43,7 @@
   <h2 class="is-size-4">Final Projects</h2>
   <div class="columns"  style="margin-top: 1rem; margin-bottom: 2rem;">
   {% for project in cohort.final_projects.all %}
-  <div class="column is-4">
-      <div class="card">
-        {% if project.screenshot %}
-        <div class="card-image">
-          <figure class="image">
-            <img src="{{ project.screenshot.url }}" alt="Screenshot of {{ project.name }}">
-          </figure>
-        </div>
-        {% endif %}
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title">{{ project.name }}</p>
-              <p class="subtitle">{{ project.members.all|join:", " }}</p>
-            </div>
-          </div>
-
-          <div class="content">
-            {{ project.description }}
-          </div>
-
-          <nav class="level is-mobile">
-            <div class="level-left">
-              {% if project.repo_url %}
-              <a class="level-item" href="{{ project.repo_url }}">
-                Source code
-              </a>
-              {% endif %}
-              {% if project.video_url %}
-              <a class="level-item" href="{{ project.video_url }}">
-                Demo Day video
-              </a>
-              {% endif %}
-              {% if project.demo_url %}
-              <a class="level-item" href="{{ project.demo_url }}">
-                Live demo site
-              </a>
-              {% endif %}
-          </nav>
-        </div>
-      </div>
-      </div>
+    {% include "_partials/project.html" %}
   {% endfor %}
   </div>
 

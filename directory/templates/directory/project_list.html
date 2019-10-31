@@ -1,0 +1,14 @@
+{% extends "base_with_navbar.html" %}
+
+{% block content %}
+  <form action="" method="GET">
+    <label for="search">Search</label>
+    <input type="search" id="search" name="search">
+    <button type="submit">Search</button>
+  </form>
+  <div class="columns">
+  {% for project in projects %}
+    {% include "_partials/project.html" %}
+  {% endfor %}
+  </div>
+{% endblock %}
