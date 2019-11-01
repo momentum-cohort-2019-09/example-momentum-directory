@@ -1,21 +1,25 @@
-{% extends "base.html" %}
+{% extends "base_with_navbar.html" %}
 
 {% block content %}
 
-<section class="hero">
-  <div class="hero-body">
-    <h1 class="title">
-      Momentum Student Directory
-    </h1>
-    <h2 class="subtitle">
-    {% if user.is_authenticated %}
-      Welcome, <a href="{% url 'profile' %}">{{ user }}</a>!
-      <small class="is-size-7 has-text-grey">Not {{ user }}? <a href="{% url 'auth_logout' %}">Logout</a>.</small>
-    {% else %}
-      <a href="{% url 'auth_login' %}">Login</a> | <a href="{% url 'registration_register' %}">Register</a>
-    {% endif %}
-    </h2>
-  </div>
-</section>
+<h1 class="title">Momentum Student Directory</h1>
+
+<h2 class="is-size-4">Our Latest Cohort <small>(Graduated {{ cohort.end_date }})</small></h2>
+
+<h3 class="is-size-5 mb2">Students</h3>
+
+<div class="columns">
+{% for member in cohort.members.all %}
+  {% include "_partials/member.html" %}
+{% endfor %}
+</div>
+
+<h3 class="is-size-5 mb2">Final Projects</h3>
+
+<div class="columns">
+{% for project in cohort.final_projects.all %}
+  {% include "_partials/project.html" %}
+{% endfor %}
+</div>
 
 {% endblock %}

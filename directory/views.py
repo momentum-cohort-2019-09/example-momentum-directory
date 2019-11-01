@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from directory.forms import ProfileForm
 from directory.models import Cohort, Project, User
@@ -11,7 +12,9 @@ momentum_staff_required = user_passes_test(
 
 
 def index_view(request):
-    return render(request, "directory/index.html")
+    latest_cohort = Cohort.objects.filter(
+        end_date__lte=timezone.now().date()).order_by('-end_date')[0]
+    return render(request, "directory/index.html", {"cohort": latest_cohort})
 
 
 @login_required

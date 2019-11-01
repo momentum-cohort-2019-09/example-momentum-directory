@@ -1,0 +1,33 @@
+<div class="column is-4">
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          {% if member.avatar %}
+            <figure class="image" style="width: 96px">
+              <img src="{{ member.avatar.url }}" alt="{{ member.name }}">
+            </figure>  
+          {% else %}
+            <figure class="image is-96x96">
+              <img src="https://via.placeholder.com/96" alt="Placeholder image">
+            </figure>
+          {% endif %}            
+        </div>
+        <div class="media-content">
+          <p class="title">
+            <a href="{{ member.get_absolute_url }}">{{ member.name }}</a>
+          </p>
+          {% if member.looking_for_job %}
+          <p class="subtitle has-text-danger">Available for hire</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="content">
+        {% for speciality in member.specialities.all %}
+          <span class="tag">{{ speciality }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
