@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY',
 in_production = bool(os.getenv('PRODUCTION'))
 DEBUG = not in_production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['momentum-directory.herokuapp.com']
 
 # Application definition
 
