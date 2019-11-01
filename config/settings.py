@@ -23,7 +23,8 @@ SECRET_KEY = os.getenv('SECRET_KEY',
                        '!9k!%89(_ldn36i&%j9510)+ly0&cl5_#2r4pyp1ug*%et#3v*')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+in_production = bool(os.getenv('PRODUCTION'))
+DEBUG = not in_production
 
 ALLOWED_HOSTS = []
 
