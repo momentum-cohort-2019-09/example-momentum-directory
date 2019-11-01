@@ -3,7 +3,8 @@
 
 {% block content %}
   <h2 class="title">Edit final projects for {{ cohort.name }}</h2>
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
     {{ formset|bulma }}
 
     <div class="field is-grouped">

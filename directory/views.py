@@ -57,7 +57,9 @@ def cohort_edit_final_projects(request, slug):
                                            ))
 
     if request.method == "POST":
-        formset = ProjectFormSet(request.POST, instance=cohort)
+        formset = ProjectFormSet(data=request.POST,
+                                 files=request.FILES,
+                                 instance=cohort)
         if formset.is_valid():
             formset.save()
             return redirect('/')
