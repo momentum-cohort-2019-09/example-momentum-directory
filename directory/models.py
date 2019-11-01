@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q, F
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from django.urls import reverse
@@ -43,6 +44,14 @@ class Cohort(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, null=True)
     start_date = models.DateField()
+    end_date = models.DateField()
+
+    class Meta:
+        ordering = ['-end_date']
+        constraints = [
+            models.CheckConstraint(name='start_date_lte_end_date',
+                                   check=Q(start_date__lte=F('end_date')))
+        ]
 
     def save(self, *args, **kwargs):
         counter = 0

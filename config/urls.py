@@ -25,9 +25,7 @@ urlpatterns = [
     path('accounts/profile/', views.accounts_profile, name='profile'),
     path('projects/', views.project_list, name='project_list'),
     path('cohorts/<slug:slug>/', views.cohort_detail, name='cohort_detail'),
-    path('people/<slug:username>/',
-         views.PersonDetailView.as_view(),
-         name='person_detail'),
+    path('people/<slug:username>/', views.person_detail, name='person_detail'),
     path('', views.index_view, name='index')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -22,8 +22,15 @@ class CohortAdmin(admin.ModelAdmin):
     fields = (
         'name',
         'slug',
+        'start_date',
+        'end_date',
     )
     prepopulated_fields = {"slug": ('name',)}
+    list_display = (
+        'name',
+        'start_date',
+        'end_date',
+    )
 
 
 admin.site.register(User, DirectoryUserAdmin)
