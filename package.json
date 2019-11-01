@@ -3,7 +3,8 @@
   "scripts": {
     "start": "npm-run-all -p django watch",
     "django": "./manage.py runserver",
-    "watch": "parcel watch frontend/index.js --out-dir directory/static/dist/"
+    "watch": "parcel watch frontend/index.js --out-dir directory/static/dist/",
+    "build": "parcel build frontend/index.js --out-dir directory/static/dist/"
   },
   "dependencies": {
     "bulma": "^0.8.0",
