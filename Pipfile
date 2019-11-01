@@ -21,6 +21,7 @@ django-bulma = "*"
 pillow = "*"
 django-heroku = "*"
 gunicorn = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
