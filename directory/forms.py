@@ -1,5 +1,5 @@
 from django import forms
-from directory.models import User
+from directory.models import User, Project, Cohort
 
 
 class ProfileForm(forms.ModelForm):

@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from directory.forms import ProfileForm
-from directory.models import Cohort, User, Project
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
-from django.views.generic.detail import DetailView
+from django.forms import inlineformset_factory
+from django.shortcuts import get_object_or_404, redirect, render
 
-# Create your views here.
+from directory.forms import ProfileForm
+from directory.models import Cohort, Project, User
+
+momentum_staff_required = user_passes_test(
+    lambda u: u.is_authenticated and u.is_momentum_staff)
 
 
 def index_view(request):
@@ -33,6 +35,34 @@ def cohort_detail(request, slug):
     return render(request, 'directory/cohort_detail.html', {
         "cohort": cohort,
         "members": members,
+    })
+
+
+@login_required
+@momentum_staff_required
+def cohort_edit_final_projects(request, slug):
+    cohort = get_object_or_404(Cohort, slug=slug)
+    ProjectFormSet = inlineformset_factory(Cohort,
+                                           Project,
+                                           fields=(
+                                               'name',
+                                               'description',
+                                               'repo_url',
+                                               'video_url',
+                                               'demo_url',
+                                               'screenshot',
+                                           ))
+
+    if request.method == "POST":
+        formset = ProjectFormSet(request.POST, instance=cohort)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/')
+    else:
+        formset = ProjectFormSet(instance=cohort)
+    return render(request, 'directory/cohort_edit_final_projects.html', {
+        "cohort": cohort,
+        'formset': formset
     })
 
 

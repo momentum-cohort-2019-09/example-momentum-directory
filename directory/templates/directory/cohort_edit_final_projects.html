@@ -1,0 +1,18 @@
+{% extends "base_with_navbar.html" %}
+{% load bulma_tags %}
+
+{% block content %}
+  <h2 class="title">Edit final projects for {{ cohort.name }}</h2>
+  <form action="" method="POST">
+    {{ formset|bulma }}
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Update final projects</button>
+      </div>
+      <div class="control">
+        <a href="{{ cohort.get_absolute_url }}" class="button is-link is-light">Cancel</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}
