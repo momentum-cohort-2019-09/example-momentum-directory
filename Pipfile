@@ -23,6 +23,9 @@ django-heroku = "*"
 gunicorn = "*"
 psycopg2 = "*"
 sentry-sdk = "==0.13.1"
+boto3 = "*"
+django-storages = "*"
+django-environ = "*"
 
 [requires]
 python_version = "3.7"

@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True),
+    PRODUCTION=(bool, False),
+    SECRET_KEY=(str, '!9k!%89(_ldn36i&%j9510)+ly0&cl5_#2r4pyp1ug*%et#3v*'),
+    DJANGO_LOG_LEVEL=(str, 'DEBUG'))
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,12 +28,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY',
-                       '!9k!%89(_ldn36i&%j9510)+ly0&cl5_#2r4pyp1ug*%et#3v*')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-in_production = bool(os.getenv('PRODUCTION'))
-DEBUG = not in_production
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -47,6 +54,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'registration',
     'bulma',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -166,7 +174,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'level': env('DJANGO_LOG_LEVEL'),
         },
     },
 }
@@ -175,12 +183,20 @@ LOGGING = {
 import django_heroku
 django_heroku.settings(locals())
 
-if not DEBUG:
-
+if env('PRODUCTION'):
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
-    sentry_sdk.init(
-        dsn=os.getenv('SENTRY_DSN'),
-        integrations=[DjangoIntegration()]
-    )
+    sentry_sdk.init(dsn=os.getenv('SENTRY_DSN'),
+                    integrations=[DjangoIntegration()])
+
+    # Amazon S3 config
+
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    DEFAULT_FILE_STORAGE = 'config.storage_backends.MediaStorage'
