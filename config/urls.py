@@ -23,11 +23,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.default.urls')),
     path('accounts/profile/', views.accounts_profile, name='profile'),
+    path('projects/', views.project_list, name='project_list'),
+    path('cohorts/<slug:slug>/', views.cohort_detail, name='cohort_detail'),
     path('cohorts/<slug:slug>/edit_projects/',
          views.cohort_edit_final_projects,
          name="cohort_edit_final_projects"),
-    path('projects/', views.project_list, name='project_list'),
-    path('cohorts/<slug:slug>/', views.cohort_detail, name='cohort_detail'),
+    path('cohorts/<slug:slug>/add_student/',
+         views.cohort_add_student,
+         name="cohort_add_student"),
     path('people/<slug:username>/', views.person_detail, name='person_detail'),
     path('', views.index_view, name='index')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

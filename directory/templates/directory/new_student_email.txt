@@ -1,0 +1,10 @@
+Congratulations, {{ student }}!
+
+You have a new account (username: {{ student.username }}) created on the Momentum Directory. To activate your account,
+you will need to reset your password.
+
+To reset your password, go to:
+
+{{ password_reset_url }}
+
+Your username is {{ student.username }}.

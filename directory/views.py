@@ -1,10 +1,16 @@
+import uuid
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.template.loader import render_to_string
+from django.urls import reverse
 
-from directory.forms import ProfileForm
+from directory.forms import NewStudentForm, ProfileForm
 from directory.models import Cohort, Project, User
 
 momentum_staff_required = user_passes_test(
@@ -68,6 +74,41 @@ def cohort_edit_final_projects(request, slug):
     return render(request, 'directory/cohort_edit_final_projects.html', {
         "cohort": cohort,
         'formset': formset
+    })
+
+
+@login_required
+@momentum_staff_required
+def cohort_add_student(request, slug):
+    cohort = get_object_or_404(Cohort, slug=slug)
+
+    if request.method == "POST":
+        form = NewStudentForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.cohort = cohort
+            student.autogenerate_username()
+            student.password = uuid.uuid4()
+            student.save()
+
+            send_mail(
+                'A new user account was created for you at Momentum Directory',
+                render_to_string(
+                    'directory/new_student_email.txt', {
+                        "student": student,
+                        "password_reset_url": request.build_absolute_uri(
+                            reverse('auth_password_reset'))
+                    }),
+                settings.DEFAULT_FROM_EMAIL,
+                [student.email],
+            )
+
+            return redirect(to='cohort_detail', slug=cohort.slug)
+
+    form = NewStudentForm()
+    return render(request, 'directory/cohort_add_student.html', {
+        "cohort": cohort,
+        "form": form
     })
 
 

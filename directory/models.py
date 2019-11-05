@@ -29,6 +29,21 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("person_detail", kwargs={"username": self.username})
 
+    def autogenerate_username(self):
+        """
+        Use the first and last name to generate a username. If the username
+        is a duplicate, add a incrementing number to the end.
+        """
+        counter = 0
+        while not self.username:
+            username_candidate = f"{self.first_name.lower()[0]}{self.last_name.lower()}"
+            if counter > 0:
+                username_candidate += str(counter)
+            if User.objects.filter(username=username_candidate).count() > 0:
+                counter += 1
+            else:
+                self.username = username_candidate
+
     def __str__(self):
         return self.name
 

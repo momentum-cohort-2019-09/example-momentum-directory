@@ -14,3 +14,10 @@ class ProfileForm(forms.ModelForm):
             'specialities',
             'interests',
         ]
+
+
+class NewStudentForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'avatar']

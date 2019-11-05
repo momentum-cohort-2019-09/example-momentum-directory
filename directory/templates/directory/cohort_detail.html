@@ -3,6 +3,9 @@
 {% block content %}
   <h1 class="title">{{ cohort.name }}</h1>
   <h2 class="is-size-4">Students</h2>
+  {% if request.user.is_momentum_staff %}
+  <p><a href="{% url 'cohort_add_student' slug=cohort.slug %}" class="button">Add student</a></p>
+  {% endif %}
   <div class="columns mt2 mt3">
     {% for member in members %}
     <div class="column is-4">

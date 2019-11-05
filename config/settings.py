@@ -179,6 +179,10 @@ LOGGING = {
     },
 }
 
+# Email
+
+DEFAULT_FROM_EMAIL = 'directory@momentumlearn.com'
+
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
